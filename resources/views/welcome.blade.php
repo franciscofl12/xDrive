@@ -13,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 
-
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
         @import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css');
@@ -77,13 +76,15 @@
                 Up to 5gb for free!
             </p>
 
-            <form class="opacity-75 w-full px-8 pt-6 pb-8 mb-4">
+            <div class="opacity-75 w-full px-8 pt-6 pb-8 mb-4">
                 <div class="flex -mx-3">
                     <div class="w-full px-3 mb-5">
-                        <x-button
-                            class="block w-1/2 max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
-                            Register Now
-                        </x-button>
+                        <a href="{{ url('register') }}">
+                            <x-button
+                                class="block w-1/2 max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                                Register Now
+                            </x-button>
+                        </a>
                         <br>
                         <br>
                         <a class="underline text-indigo-400 py-5 mb-5 hover:text-white"
@@ -92,7 +93,7 @@
                         </a>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!--Right Col-->
