@@ -184,16 +184,18 @@
                                         REGISTER NOW
                                     </button>
                                     <br>
-                                    <a class="underline text-sm text-gray-600 py-4 hover:text-indigo-5s00" href="{{ route('login') }}">
+                                    <a class="underline text-sm text-gray-600 py-4 hover:text-indigo-5s00"
+                                       href="{{ route('login') }}">
                                         {{ __('Already registered?') }}
                                     </a>
                                 </div>
                             </div>
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
+
 </x-guest-layout>
 
