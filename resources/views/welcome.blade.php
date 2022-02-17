@@ -23,8 +23,8 @@
 
         body {
             background-image: url("../resources/img/header.png");
-            background-repeat:no-repeat;
-            background-size:cover;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
     </style>
@@ -75,27 +75,40 @@
             <p class="leading-normal text-base text-indigo-400 md:text-2xl mb-8 px-6 text-center md:text-left">
                 Up to 5gb for free!
             </p>
-
-            <div class="opacity-75 w-full px-8 pt-6 pb-8 mb-4">
-                <div class="flex -mx-3">
-                    <div class="w-full px-3 mb-5">
-                        <a href="{{ url('register') }}">
-                            <x-button
-                                class="block w-1/2 max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
-                                Register Now
-                            </x-button>
-                        </a>
-                        <br>
-                        <br>
-                        <a class="underline text-indigo-400 py-5 mb-5 hover:text-white"
-                           href="{{ route('login') }}">
-                            {{ __('Already registered?') }}
-                        </a>
+            @auth
+                <div class="opacity-75 w-full px-8 pt-6 pb-8 mb-4">
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <a href="{{ url('dashboard') }}">
+                                <x-button
+                                    class="block w-1/2 max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                                    Go to dashboard
+                                </x-button>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+                <div class="opacity-75 w-full px-8 pt-6 pb-8 mb-4">
+                    <div class="flex -mx-3">
+                        <div class="w-full px-3 mb-5">
+                            <a href="{{ url('register') }}">
+                                <x-button
+                                    class="block w-1/2 max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">
+                                    Register Now
+                                </x-button>
+                            </a>
+                            <br>
+                            <br>
+                            <a class="underline text-indigo-400 py-5 mb-5 hover:text-white"
+                               href="{{ route('login') }}">
+                                {{ __('Already registered?') }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endauth
         </div>
-
         <!--Right Col-->
         <div class="w-full xl:w-3/5 p-12 overflow-hidden">
             <img

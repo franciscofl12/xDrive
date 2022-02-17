@@ -111,7 +111,7 @@
                                             <i class="mdi mdi-account-outline text-gray-400 text-lg"></i></div>
                                         <x-input id="username"
                                                  class="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
-                                                 placeholder="Username" type="text" name="name"
+                                                 placeholder="Username" type="text" name="username"
                                                  :value="old('username')" required autofocus/>
                                     </div>
                                 </div>
