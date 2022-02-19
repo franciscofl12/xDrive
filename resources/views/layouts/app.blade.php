@@ -20,20 +20,31 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="relative min-h-screen md:flex">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
+            <div class="flex-1 p-10 text-2xl font-bold">
+                <!-- Page Heading -->
+                <header class="bg-white shadow">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+                <main>
+                    {{ $slot }}
+                </main>
+            </div>
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+
         </div>
+        <script>
+            const btn = document.querySelector(".mobile-menu-button");
+            const sidebar = document.querySelector(".sidebar");
+
+            // add our event listener for the click
+            btn.addEventListener("click", () => {
+                sidebar.classList.toggle("-translate-x-full");
+            });
+        </script>
     </body>
 </html>
