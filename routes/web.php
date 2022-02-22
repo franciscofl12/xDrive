@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,17 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
+
+Route::get('/admin', function () {
+    return view('admin' , ["users"=>\App\Models\User::all()]);
+})->middleware(['admin'])->name('admin');
+
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::get('/edit/{id}', function ($id) {
+    return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => UserController::getData($id)]);
+})->middleware(['admin'])->name('edit');
+
+Route::resource("users", "UserController")->parameters(["users"=>"user"]);
 
 require __DIR__.'/auth.php';

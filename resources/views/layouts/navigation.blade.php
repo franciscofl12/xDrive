@@ -33,16 +33,27 @@
         <?php
         }
         ?>
-        <button class="bg-indigo-400 hover:bg-white hover:text-gray-900 mb-4 text-white font-bold py-2 px-4 rounded"
+        <button id="dropdownDividerButton" data-dropdown-toggle="dropdownDivider" class="text-white hover:bg-gray-800 font-medium rounded-lg text-sm px-4 mb-4 py-2.5 text-center inline-flex items-center" type="button">{{auth()->user()->username}} <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button><br>
+
+        <!-- Dropdown menu -->
+        <div id="dropdownDivider" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
+            <div class="py-1">
+                <a href="{{route('logout')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+            </div>
+        </div>
+
+        <button class="bg-indigo-400 hover:bg-white hover:text-gray-900 transition duration-200 mb-4 text-white font-bold py-2 px-4 rounded"
                 type="button" data-modal-toggle="defaultModal">
             Edit profile
         </button>
         <?php
         if (auth()->user()->rol == "admin") {
         ?>
-        <button class="bg-orange-400 hover:bg-white hover:text-gray-900 text-gray-900 font-bold py-2 px-4 rounded">
-            Admin Panel
-        </button>
+        <a href="{{route('admin')}}">
+            <button class="bg-orange-400 hover:bg-white transition duration-200 hover:text-gray-900 text-gray-900 font-bold py-2 px-4 rounded">
+                Admin Panel
+            </button>
+        </a>
         <?php
         }
         ?>
@@ -63,20 +74,31 @@
             Pricing
         </a>
     </nav>
+    <div class="flex w-full items-center justify-center bg-grey-lighter">
+        <label
+            class="w-64 flex flex-col border-indigo-400  items-center px-4 py-6 bg-white text-indigo-400 transition duration-700 rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-indigo-400 hover:text-white">
+            <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path
+                    d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"/>
+            </svg>
+            <span class="mt-2 text-base leading-normal">Upload a File</span>
+            <input type='file' class="hidden"/>
+        </label>
+    </div>
 </div>
 <!-- Modal Start -->
 <div id="defaultModal" aria-hidden="true"
      class="hidden overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0">
     <div class="relative px-4 w-full max-w-2xl h-full md:h-auto">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow">
             <!-- Modal header -->
-            <div class="flex justify-between items-start p-5 rounded-t border-b dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl dark:text-white">
+            <div class="flex justify-between items-start p-5 rounded-t border-b">
+                <h3 class="text-xl font-semibold text-gray-900 lg:text-2xl">
                     Edit Profile
                 </h3>
                 <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        class="text-gray-900 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                         data-modal-toggle="defaultModal">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -88,18 +110,18 @@
             <!-- Modal body -->
             <div class="p-6 space-y-6">
                 <form class="px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="#">
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    <p class="text-base leading-relaxed text-gray-500 ">
                         With less than a month to go before the European Union enacts new consumer privacy laws for its
                         citizens, companies around the world are updating their terms of service agreements to comply.
                     </p>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                    <p class="text-base leading-relaxed text-gray-500">
                         The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25
                         and is meant to ensure a common set of data rights in the European Union. It requires
                         organizations to notify users as soon as possible of high-risk data breaches that could
                         personally affect them.
                     </p>
                     <button data-modal-toggle="defaultModal" type="button"
-                            class="text-white bg-gray-900 hover:bg-gray-800 hover:text-white focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
+                            class="text-white bg-gray-900 hover:bg-gray-800 hover:text-white focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 ">
                         Save
                     </button>
                 </form>
