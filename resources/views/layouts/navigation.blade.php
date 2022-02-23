@@ -25,7 +25,7 @@
         if(auth()->user()->avatar == null) {
         ?>
         <img class="mx-auto rounded-full border-2 border-indigo-400 mb-4"
-             src="../resources/img/defaultavatar.jpg" width="150px">
+        s     src="../resources/img/defaultavatar.jpg" width="150px">
         <?php
         } else {
         ?>

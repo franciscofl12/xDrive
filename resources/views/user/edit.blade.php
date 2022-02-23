@@ -16,7 +16,6 @@
                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Disconnected </span>
                         @endif</h1>
 
-
                 </div>
 
                 <span class="text-base text-gray-900 mb-4">All information changed here will be irreversible </span>
