@@ -26,10 +26,10 @@ class SessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
         $session = DB::select("select * from sessions WHERE user_id= $id ");
-        //$session = Session::find()->where();
+        //$session = Session::where('user_id', $id);
         return $session;
     }
 

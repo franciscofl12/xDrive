@@ -76,8 +76,17 @@
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                            <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>
+                                                @for ($i= 0; $i < count($data); $i++ )
+                                                    @if ($data[$i]->user_id == $user->id)
+                                                        @if ($data[$i]->last_activity-strtotime(now()) < 300 && $data[$i]->last_activity-strtotime(now()) > -300)
+                                                            <span
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>
+                                                        @else
+                                                            <span
+                                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Disconnected </span>
+                                                        @endif</h1>
+                                                    @endif
+                                                @endfor
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 @if($user->email_verified_at != null)

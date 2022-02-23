@@ -25,13 +25,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth','verified'])->name('dashboard');
 
 Route::get('/admin', function () {
-    return view('admin' , ["users"=>\App\Models\User::all()]);
+    return view('admin' , ["users"=>\App\Models\User::all()] , ["data" => SessionController::index()]);
 })->middleware(['admin'])->name('admin');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/edit/{id}', function ($id) {
-    return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::index()]);
+    return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
 })->middleware(['admin'])->name('edit');
 
 Route::resource("users", "UserController")->parameters(["users"=>"user"]);
