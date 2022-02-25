@@ -38,7 +38,7 @@
         <!-- Dropdown menu -->
         <div id="dropdownDivider" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
             <div class="py-1">
-                <a href="{{url('user/profile')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Edit Profile</a>
+                <a href="{{route('profile')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Edit Profile</a>
             </div>
             <div class="py-1">
                 <a href="{{route('logout')}}" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Logout</a>

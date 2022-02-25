@@ -32,6 +32,10 @@ Route::get('/admin', function () {
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
+Route::get('profile', function () {
+    return view('user.profile', ["user"=>Auth::user()] );
+})->middleware(['auth','verified'])->name('profile');
+
 Route::get('/edit/{id}', function ($id) {
     return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
 })->middleware(['admin'])->name('edit');
