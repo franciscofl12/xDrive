@@ -8,7 +8,7 @@
             <div class="w-full md:w-2/5 p-4 sm:p-6 lg:p-8 bg-white">
                 <div class="flex justify-between">
                     <h1 class="font-semibold block">{{$user->username}}'s Profile
-                        @if ($data[0]->last_activity-strtotime(now()) < 300 && $data[0]->last_activity-strtotime(now()) > -300)
+                        @if ($data->last_activity-strtotime(now()) < 300 && $data->last_activity-strtotime(now()) > -300)
                             <span
                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>
                         @else
@@ -34,14 +34,14 @@
                 <div class="w-full p-8 mx-2 flex">
                     <div class="pb-1">
                         <p for="name" class="font-semibold text-gray-900 block pb-1">IP</p>
-                            {{$data[0]->ip_address}}
+                            {{$data->ip_address}}
                     </div>
                 </div>
 
                 <div class="w-full p-8 mx-2 flex">
                     <div class="pb-1">
                         <p for="name" class="font-semibold text-gray-900 block pb-1">Last Activity</p>
-                        {{date("Y-m-d H:i:s", $data[0]->last_activity)}}
+                        {{date("Y-m-d H:i:s", $data->last_activity)}}
                     </div>
                 </div>
                 <div class="w-full p-8 mx-2 flex">

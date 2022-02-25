@@ -28,8 +28,8 @@ class SessionController extends Controller
      */
     public static function show($id)
     {
-        $session = DB::select("select * from sessions WHERE user_id= $id ");
-        //$session = Session::where('user_id', $id);
+        //$session = DB::select("select * from sessions WHERE user_id= $id ");
+        $session = Session::where('user_id', $id)->first();
         return $session;
     }
 

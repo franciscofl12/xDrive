@@ -3,6 +3,8 @@
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Models\Archive;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,8 +36,6 @@ Route::get('/edit/{id}', function ($id) {
     return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
 })->middleware(['admin'])->name('edit');
 
-Route::resource("users", "UserController")->parameters(["users"=>"user"]);
-
-Route::resource('archive', ArchiveController::class)->middleware(['auth', 'verified]']);
+Route::resource('archive', ArchiveController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

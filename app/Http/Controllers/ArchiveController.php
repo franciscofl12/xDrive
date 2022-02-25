@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Archive;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +16,7 @@ class ArchiveController extends Controller
      */
     public function index()
     {
-        $user=User::find(Auth::id());
-        $archives=$user->archives()->get();
-        return view('dashboard')->with('archives', $archives)->name('dashboard');
+        return redirect('dashboard');
     }
 
     /**
@@ -27,7 +26,7 @@ class ArchiveController extends Controller
      */
     public function create()
     {
-        //
+        return redirect('dashboard');
     }
 
     /**
@@ -38,7 +37,27 @@ class ArchiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $files = $request->file('uploadfiles');
+
+        if($request->hasFile('uploadfiles'))
+        {
+            foreach ($files as $file) {
+                try{
+                    $newFile= new Archive();
+                    $newFile->owner=Auth::id();
+                    $newFile->type=$file->extension();
+                    $nameArchive=time()."-".$file->getClientOriginalName();
+                    $newFile->route=$nameArchive;
+                    $newFile->save();
+
+                    $file->storeAs('public/archives', $nameArchive);
+                    return redirect()->route('dashboard');
+
+                }catch (QueryException $exception){
+                    return redirect()->route('dashboard')->with('error',1);
+                }
+            }
+        }
     }
 
     /**
