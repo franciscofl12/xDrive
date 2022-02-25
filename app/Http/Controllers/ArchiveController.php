@@ -37,6 +37,7 @@ class ArchiveController extends Controller
      */
     public function store(Request $request)
     {
+
         $files = $request->file('uploadfiles');
 
         if($request->hasFile('uploadfiles'))
@@ -51,12 +52,12 @@ class ArchiveController extends Controller
                     $newFile->save();
 
                     $file->storeAs('public/archives', $nameArchive);
-                    return redirect()->route('dashboard');
 
                 }catch (QueryException $exception){
                     return redirect()->route('dashboard')->with('error',1);
                 }
             }
+            return redirect()->route('dashboard');
         }
     }
 

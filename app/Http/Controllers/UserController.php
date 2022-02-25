@@ -84,8 +84,4 @@ class UserController extends Controller
         //
     }
 
-    public static function getData($id) {
-        $data = DB::select("select * from sessions WHERE user_id= $id ");
-        return $data;
-    }
 }

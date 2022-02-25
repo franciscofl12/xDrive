@@ -25,7 +25,7 @@
                         <p for="name" class="font-semibold text-gray-900 block pb-1">Current Avatar</p>
                         @if($user->avatar == null)
                         <img class="mx-auto rounded-full border-2 border-indigo-400"
-                             src="../../resources/img/defaultavatar.jpg" width="150px">
+                             src="{{ asset('../resources/img/defaultavatar.jpg')}}" width="150px">
                         @else
                         <img class="mx-auto rounded-full border-2 border-indigo-400" src="" width="150px">
                         @endif
