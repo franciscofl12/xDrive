@@ -79,7 +79,7 @@
 
             <div class="w-full md:w-3/5 p-8 bg-white lg:ml-4">
                 <div class="rounded  shadow p-6">
-                    <form action="" method="POST">
+                    <form action="{{route('user.update') , $user->id}}" method="POST">
                         @csrf
 
                         <span
