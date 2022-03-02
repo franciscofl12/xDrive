@@ -32,42 +32,51 @@ class ArchiveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $file = $request->file('uploadfiles');
+        if ($request->hasFile('uploadfiles')) {
+            try {
+                $newFile = new Archive();
+                $newFile->owner = Auth::id();
+                $newFile->name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);;
+                $newFile->type = $file->extension();
+                $nameArchive = time() . "-" . $file->getClientOriginalName();
+                $newFile->route = $nameArchive;
+                $newFile->save();
 
-        $files = $request->file('uploadfiles');
+                $file->storeAs('public/archives', $nameArchive);
+                return redirect()->route('dashboard');
 
-        if($request->hasFile('uploadfiles'))
-        {
-            foreach ($files as $file) {
-                try{
-                    $newFile= new Archive();
-                    $newFile->owner=Auth::id();
-                    $newFile->type=$file->extension();
-                    $nameArchive=time()."-".$file->getClientOriginalName();
-                    $newFile->route=$nameArchive;
-                    $newFile->save();
-
-                    $file->storeAs('public/archives', $nameArchive);
-
-                }catch (QueryException $exception){
-                    return redirect()->route('dashboard')->with('error',1);
-                }
+            } catch (QueryException $exception) {
+                return redirect()->route('dashboard')->with('error', 1);
             }
-            return redirect()->route('dashboard');
         }
+    }
+
+    public static function getAllArchives() {
+        return Archive::all();
+    }
+
+    public static function downloadArchive($id) {
+        $archive = Archive::findOrFail($id);
+        $download = "";
+        $download = copy('storage/archives/'.$archive->route, $download);
+
+        return response()->download($download, $archive->name);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public
+    function show($id)
     {
         //
     }
@@ -75,10 +84,11 @@ class ArchiveController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         //
     }
@@ -86,11 +96,12 @@ class ArchiveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public
+    function update(Request $request, $id)
     {
         //
     }
@@ -98,11 +109,17 @@ class ArchiveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
-        //
+        $file=Archive::findOrFail($id);
+        if(file_exists(public_path('archives/'.$file->route))){
+            unlink(public_path('archives/'.$file->route));
+        }
+        $file->delete();
+        return redirect()->route('dashboard');
     }
 }

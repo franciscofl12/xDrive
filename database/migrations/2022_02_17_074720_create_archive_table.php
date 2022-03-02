@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('archives', function (Blueprint $table) {
             $table->id()->unique();
             $table->unsignedBigInteger('owner');
+            $table->String('name');
             $table->String('type');
             $table->String('route');
             $table->timestamps();

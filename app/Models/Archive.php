@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Archive extends Model
 {
-    use HasFactorys;
+    use HasFactory;
 
     public function own()
     {

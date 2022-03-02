@@ -6,38 +6,85 @@
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: 1%"></div>
             </div>
+            @if(session('error')==1)
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">Database error, contact with an admin.</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 20 20"><title>Close</title><path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                  </span>
+                </div>
+            @endif
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    Tabla archivos
-                </div>
+                <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-6 bg-white border-b border-gray-200 shadow-lg">
+                    @foreach(\App\Http\Controllers\ArchiveController::class::getAllArchives() as $archive)
+                        <div class="bg-gray-900 w-60 shadow-lg rounded p-2">
+                            <div class="flex">
+                                <p class="text-sm text-white">
+                                    {{$archive->name}}
+                                </p>
+                            </div>
+                            <div class="group relative">
+                                <img alt="Placeholder" class="block h-48 p-2 w-full rounded"
+                                     src="{{ asset('../resources/img/'.$archive->type.'.png')}}">
+                                <div
+                                    class="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
+
+                                    <button type="submit"
+                                            class="hover:scale-110 text-white outline-none  opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                        </svg>
+                                    </button>
+                                    <form action="{{route('archive.destroy' , $archive->id)}}" method="POST">
+                                        @csrf
+                                        @method('Delete')
+                                        <button type="submit"
+                                            class="hover:scale-110 text-white outline-none opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </section>
                 <form action="{{route('archive.store')}}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div id="overlay" class="m-4">
                         <label class="inline-block mb-2 text-gray-500">File Upload</label>
                         <div class="flex items-center justify-center w-full">
                             <label
-                                class="flex flex-col w-full h-40 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                    <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
-                                        <li id="empty"
-                                            class="h-full w-full text-center flex flex-col items-center justify-center items-center">
-                                            <img class="w-28 py-2"
-                                                 src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
-                                                 alt="no data"/>
-                                            <span class="text-small text-gray-500">No files selected</span>
-                                        </li>
-                                    </ul>
+                                class="flex flex-col w-full h-40 border-4 border-gray-900 border-dashed hover:bg-gray-100 hover:border-indigo-400">
+                                <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                                    <li id="empty"
+                                        class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+                                        <img class="w-28 py-2"
+                                             src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
+                                             alt="no data"/>
+                                        <span class="text-small text-gray-500">No files selected</span>
+                                    </li>
+                                </ul>
                                 <input name="uploadfiles" type="file" multiple id="hidden-input" class="opacity-0"/>
                             </label>
 
                         </div>
                     </div>
                     <div class="flex justify-center p-2">
-                        <button class="w-full px-4 py-2 text-white bg-blue-500 rounded shadow-xl">Upload Files</button>
+                        <button class="w-full px-4 py-2 text-white bg-gray-900 hover:bg-indigo-400 rounded shadow-xl">Upload Files</button>
                     </div>
                 </form>
                 <!-- using two similar templates for simplicity in js code -->
