@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="group relative">
-                                <img alt="Placeholder" class="block h-48 p-2 w-full object-fill rounded"
+                                <img alt="Archive Image" class="block h-48 p-2 w-full object-fill rounded"
                                      src="{{ asset('../resources/img/'.$archive->type.'.png')}}">
                                 <div
                                     class="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
