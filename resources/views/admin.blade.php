@@ -69,10 +69,17 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            @php
+                                                $totalsize = 0;
+                                                foreach (\App\Http\Controllers\ArchiveController::class::getAllArchives($user->id) as $archive) {
+                                                    $totalsize =+ $archive->size;
+                                                }
+                                                $percentage = round(($totalsize/5120)*10,2);
+                                            @endphp
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">0%/5GB</div>
+                                                <div class="text-sm font-medium text-gray-900">{{$percentage}}%/5GB</div>
                                                 <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 1%"></div>
+                                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$percentage}}%"></div>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -82,8 +89,12 @@
                                                             <span
                                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"> Active </span>
                                                             @endif</h1>
+                                                            @if ($data[$i]->last_activity-strtotime(now()) > 300 || $data[$i]->last_activity-strtotime(now()) < -300)
+                                                                <span
+                                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Inactive </span>
+                                                                @endif</h1>
                                                         @endif
-                                                        @endfor
+                                                @endfor
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 @if($user->email_verified_at != null)

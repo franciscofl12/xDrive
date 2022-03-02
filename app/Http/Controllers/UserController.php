@@ -69,9 +69,39 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        //
+        $validate=$request->validate([
+            'firstname'=>'required',
+            'lastname'=>'required',
+        ]);
+        try{
+            $updateUser=User::findOrFail($id);
+            if ($request->input('firstname')) {
+                $updateUser->firstname = $request->input('firstname');
+                $updateUser->lastname = $request->input('lastname');
+            }
+            // We will check if an admin is updating the profile
+            if ($request->input('username')) {
+                $updateUser->username=$request->input('username');
+                $updateUser->email=$request->input('username');
+            }
+            if ($request->input('password')) {
+                $updateUser->password = md5($request->input('password'));
+            }
+
+            if(is_uploaded_file($request->file('file'))){
+                $picture=time()."-".$request->file('file')->getClientOriginalName();
+                $updateUser->file=$picture;
+                $request->file('file')->storeAs('public/profilepictures', $picture);
+            }
+            $updateUser->save();
+
+            return redirect()->route('dashboard');
+
+        }catch (QueryException $exception){
+            return redirect()->route('dashboard')->with('error',1);
+        }
     }
 
     /**

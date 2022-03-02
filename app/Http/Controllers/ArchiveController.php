@@ -29,6 +29,13 @@ class ArchiveController extends Controller
         return redirect('dashboard');
     }
 
+    function formatBytes($size, $precision = 2)
+    {
+        $base = log($size, 1024);
+
+        return round(pow(1024, log($size, 1024) - floor(log($size, 1024))), $precision);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +51,7 @@ class ArchiveController extends Controller
                 $newFile->owner = Auth::id();
                 $newFile->name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);;
                 $newFile->type = $file->extension();
+                $newFile->size = round(pow(1024, log($file->getSize(), 1024) - floor(log($file->getSize(), 1024))), 2);
                 $nameArchive = time() . "-" . $file->getClientOriginalName();
                 $newFile->route = $nameArchive;
                 $newFile->save();
@@ -57,8 +65,14 @@ class ArchiveController extends Controller
         }
     }
 
-    public static function getAllArchives() {
-        return Archive::all();
+    public static function getAllArchives($id) {
+        $archives = [];
+        foreach(Archive::all() as $archive) {
+            if ($archive->owner == $id) {
+                    array_push($archives,$archive);
+                }
+        }
+        return $archives;
     }
 
     public static function downloadArchive($id) {
@@ -78,7 +92,7 @@ class ArchiveController extends Controller
     public
     function show($id)
     {
-        //
+        return view('archive.show')->with('archive' , Archive::findOrFail($id));
     }
 
     /**

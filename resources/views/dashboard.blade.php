@@ -2,9 +2,16 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-900 leading-tight">
             <p class="mb-4">Free Plan</p>
-            <p class="mb-2">0%/5GB</p>
+            @php
+                $totalsize = 0;
+                foreach (\App\Http\Controllers\ArchiveController::class::getAllArchives(auth()->user()->id) as $archive) {
+                    $totalsize =+ $archive->size;
+                }
+                $percentage = round(($totalsize/5120)*10,2);
+            @endphp
+            <p class="mb-2">{{$percentage}}%/5GB</p>
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 1%"></div>
+                <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$percentage}}%"></div>
             </div>
             @if(session('error')==1)
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -23,16 +30,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden sm:rounded-lg">
-                <section class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-6 bg-white border-b border-gray-200 shadow-lg">
-                    @foreach(\App\Http\Controllers\ArchiveController::class::getAllArchives() as $archive)
+                <section
+                    class="grid grid-cols-1 shadow-mg duration-700 transition rounded-lg md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-3 p-6 bg-white border-b border-gray-200 shadow-lg">
+                    @foreach(\App\Http\Controllers\ArchiveController::class::getAllArchives(auth()->user()->id) as $archive)
                         <div class="bg-gray-900 w-60 shadow-lg rounded p-2">
                             <div class="flex">
-                                <p class="text-sm text-white">
+                                <a href="{{route('archive.show' , $archive->id)}}"
+                                   class="text-sm text-white hover:text-indigo-400">
                                     {{$archive->name}}
-                                </p>
+                                </a>
                             </div>
                             <div class="group relative">
-                                <img alt="Placeholder" class="block h-48 p-2 w-full rounded"
+                                <img alt="Placeholder" class="block h-48 p-2 w-full object-fill rounded"
                                      src="{{ asset('../resources/img/'.$archive->type.'.png')}}">
                                 <div
                                     class="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
@@ -49,7 +58,7 @@
                                         @csrf
                                         @method('Delete')
                                         <button type="submit"
-                                            class="hover:scale-110 text-white outline-none opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                                                class="hover:scale-110 text-white outline-none opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                  viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -84,7 +93,9 @@
                         </div>
                     </div>
                     <div class="flex justify-center p-2">
-                        <button class="w-full px-4 py-2 text-white bg-gray-900 hover:bg-indigo-400 rounded shadow-xl">Upload Files</button>
+                        <button class="w-full px-4 py-2 text-white bg-gray-900 hover:bg-indigo-400 rounded shadow-xl">
+                            Upload Files
+                        </button>
                     </div>
                 </form>
                 <!-- using two similar templates for simplicity in js code -->

@@ -41,5 +41,6 @@ Route::get('/edit/{id}', function ($id) {
 })->middleware(['admin'])->name('edit');
 
 Route::resource('archive', ArchiveController::class)->middleware(['auth', 'verified']);
+Route::resource('user', UserController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
