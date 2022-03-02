@@ -48,7 +48,7 @@
                 <div class="rounded  shadow p-6">
                     <form action="" method="POST">
                         @csrf
-
+                        @method('PUT')
                         <span
                             class="text-gray-600 pt-4 mb-4 block opacity-70">Personal login information of {{$user->username}} profile</span>
                         <div class="pb-6">

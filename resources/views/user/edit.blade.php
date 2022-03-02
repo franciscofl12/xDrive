@@ -79,9 +79,9 @@
 
             <div class="w-full md:w-3/5 p-8 bg-white lg:ml-4">
                 <div class="rounded  shadow p-6">
-                    <form action="{{route('user.update') , $user->id}}" method="POST">
+                    <form action="{{route('user.update', $user->id)}}" method="POST">
                         @csrf
-
+                        @method('PUT')
                         <span
                             class="text-gray-600 pt-4 mb-4 block opacity-70">Personal login information of {{$user->username}} profile</span>
                         <div class="pb-6">
