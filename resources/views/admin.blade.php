@@ -55,7 +55,7 @@
                                                         } else {
                                                         ?>
                                                         <img class="h-10 w-10 rounded-full border-indigo-400"
-                                                             src="../resources/img/defaultavatar.jpg"
+                                                             src="{{asset('storage/profilepictures/' . $user->avatar)}}"
                                                              alt="">
                                                         <?php
                                                         }
@@ -77,9 +77,11 @@
                                                 $percentage = round(($totalsize/5120)*10,2);
                                             @endphp
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <div class="text-sm font-medium text-gray-900">{{$percentage}}%/5GB</div>
+                                                <div class="text-sm font-medium text-gray-900">{{$percentage}}%/5GB
+                                                </div>
                                                 <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{$percentage}}%"></div>
+                                                    <div class="bg-blue-600 h-2.5 rounded-full"
+                                                         style="width: {{$percentage}}%"></div>
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -93,8 +95,8 @@
                                                                 <span
                                                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"> Inactive </span>
                                                                 @endif</h1>
-                                                        @endif
-                                                @endfor
+                                                            @endif
+                                                            @endfor
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 @if($user->email_verified_at != null)
@@ -116,12 +118,14 @@
                                                 @endif
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$user->rol}}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="{{url('edit/'.$user->id)}}"
-                                                   class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                                |
-                                                <a href="#" class="text-indigo-600 hover:text-indigo-900">Files
-                                                    Uploaded</a> |
+                                            <td class="py-4 whitespace-nowrap text-sm font-medium">
+                                                <a href="{{url('edit/'.$user->id)}}" class="text-indigo-600 hover:text-indigo-900 inline-flex">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                                    </svg>
+                                                </a>
                                                 <a href="#" class="text-indigo-600 hover:text-indigo-900 inline-flex"
                                                    data-modal-toggle="popup-modal">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"

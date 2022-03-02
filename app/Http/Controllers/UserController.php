@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -71,33 +72,48 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate=$request->validate([
-            'firstname'=>'required',
-            'lastname'=>'required',
-        ]);
         try{
-            $updateUser=User::findOrFail($id);
-            if ($request->input('firstname')) {
-                $updateUser->firstname = $request->input('firstname');
-                $updateUser->lastname = $request->input('lastname');
-            }
-            // We will check if an admin is updating the profile
-            if ($request->input('username')) {
-                $updateUser->username=$request->input('username');
-                $updateUser->email=$request->input('username');
-            }
-            if ($request->input('password')) {
-                $updateUser->password = md5($request->input('password'));
-            }
+            if (Auth::user()->rol == "admin" ) {
+                $updateUser = User::findOrFail($id);
+                if ($request->input('firstname')) {
+                    $updateUser->firstname = $request->input('firstname');
+                    $updateUser->lastname = $request->input('lastname');
+                }
+                // We will check if an admin is updating the profile
+                if ($request->input('username')) {
+                    $updateUser->username = $request->input('username');
+                    $updateUser->email = $request->input('email');
+                }
+                if ($request->input('password')) {
+                    $updateUser->password = md5($request->input('password'));
+                }
+                if ($request->input('rol')) {
+                    $updateUser->rol = $request->input('rol');
+                }
 
-            if(is_uploaded_file($request->file('file'))){
-                $picture=time()."-".$request->file('file')->getClientOriginalName();
-                $updateUser->file=$picture;
-                $request->file('file')->storeAs('public/profilepictures', $picture);
-            }
-            $updateUser->save();
+                if (is_uploaded_file($request->file('file'))) {
+                    $picture = time() . "-" . $request->file('file')->getClientOriginalName();
+                    $updateUser->avatar = $picture;
+                    $request->file('file')->storeAs('public/profilepictures', $picture);
+                }
+                $updateUser->save();
 
-            return redirect()->route('dashboard');
+                return redirect()->route('dashboard');
+            } else {
+                $updateUser = User::findOrFail($id);
+                if ($request->input('firstname')) {
+                    $updateUser->firstname = $request->input('firstname');
+                    $updateUser->lastname = $request->input('lastname');
+                }
+
+                if (is_uploaded_file($request->file('file'))) {
+                    $picture = time() . "-" . $request->file('file')->getClientOriginalName();
+                    $updateUser->avatar = $picture;
+                    $request->file('file')->storeAs('public/profilepictures', $picture);
+                }
+                $updateUser->save();
+                return redirect()->route('dashboard');
+            }
 
         }catch (QueryException $exception){
             return redirect()->route('dashboard')->with('error',1);

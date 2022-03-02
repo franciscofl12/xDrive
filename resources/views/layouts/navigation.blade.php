@@ -29,7 +29,7 @@
         <?php
         } else {
         ?>
-        <img class="mx-auto rounded-full border-2 border-indigo-400 mb-4" src="" width="150px">
+        <img class="mx-auto rounded-full border-2 border-indigo-400 mb-4" src="{{asset('storage/profilepictures/' . auth()->user()->avatar)}}" width="150px">
         <?php
         }
         ?>

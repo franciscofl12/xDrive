@@ -92,7 +92,8 @@ class ArchiveController extends Controller
     public
     function show($id)
     {
-        return view('archive.show')->with('archive' , Archive::findOrFail($id));
+        $this->middleware('ArchivePermission');
+        return view('archive.show' , ['archive'=> Archive::findOrFail($id)]);
     }
 
     /**
