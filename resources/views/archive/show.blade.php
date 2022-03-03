@@ -33,6 +33,29 @@
                             </div>
                         </div>
                     </section>
+                    <a href="{{url('download/'.$archive->id)}}">
+                        <button type="submit"
+                                class="hover:scale-110 hover:text-gray-900 text-indigo-500 outline-none transform translate-y-3 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                        </button>
+                    </a>
+                    <form action="{{route('archive.destroy' , $archive->id)}}" method="POST">
+                        @csrf
+                        @method('Delete')
+                        <button type="submit"
+                                class="hover:scale-110 hover:text-gray-900 text-indigo-500 outline-none transform translate-y-3 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </button>
+                    </form>
+                    <br>
                 </div>
             </div>
 
@@ -83,11 +106,13 @@
                             </div>
                         </div>
                     </div>
-                    <form class="w-full content-center items-center">
+                    <form action="{{route('sharedarchive.store')}}" method="POST" class="w-full content-center items-center">
+                        @csrf
                         <div class="flex items-center content-center border-b border-indigo-500 py-2">
                             <input
                                 class="appearance-none bg-transparent border-none w-full text-indigo-500 mr-3 py-1 px-2 leading-tight focus:outline-none"
-                                type="text" placeholder="username" aria-label="username">
+                                type="text" placeholder="username" name="username" id="username" value="{{ old('username') }}" aria-label="username">
+                            <input type="hidden" name="id" value="{{$archive->id}}">
                             <button type="submit"
                                     class="flex-shrink-0 bg-indigo-500 hover:bg-gray-900 border-indigo-500 hover:border-gray-900 text-sm border-4 text-white py-1 px-2 rounded"
                                     type="button">
@@ -95,11 +120,27 @@
                             </button>
                             <button
                                 class="flex-shrink-0 border-transparent border-4 text-indigo-500 hover:text-gray-900 text-sm py-1 px-2 rounded"
-                                type="button">
+                                type="button" onclick="ClearFields();">
                                 Cancel
                             </button>
+                            <script>
+                                function ClearFields() {
+                                    document.getElementById("username").value = "";
+                                }
+                            </script>
                         </div>
                     </form>
+                    @error('username')
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline">{{$message}}.</span>
+                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 20 20"><title>Close</title><path
+                            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+                  </span>
+                    </div>
+                    @enderror
                 </div>
             </div>
         </div>

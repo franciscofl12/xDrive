@@ -6,9 +6,11 @@ use App\Models\Archive;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArchiveController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -77,10 +79,9 @@ class ArchiveController extends Controller
 
     public static function downloadArchive($id) {
         $archive = Archive::findOrFail($id);
-        $download = "";
-        $download = copy('storage/archives/'.$archive->route, $download);
+        $download = Storage::download('public/archives/'.$archive->route);
 
-        return response()->download($download, $archive->name);
+        return $download;
     }
 
     /**
@@ -131,9 +132,7 @@ class ArchiveController extends Controller
     function destroy($id)
     {
         $file=Archive::findOrFail($id);
-        if(file_exists(public_path('archives/'.$file->route))){
-            unlink(public_path('archives/'.$file->route));
-        }
+        Storage::delete('public/archives/'.$file->route);
         $file->delete();
         return redirect()->route('dashboard');
     }

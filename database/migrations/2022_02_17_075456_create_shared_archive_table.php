@@ -15,12 +15,11 @@ return new class extends Migration
     {
         Schema::create('shared_archive', function (Blueprint $table) {
             $table->id()->unique();
-            $table->unsignedBigInteger('owner');
+            $table->unsignedBigInteger('archiveID');
             $table->unsignedBigInteger('sharedID');
-            $table->timestamp('shared_at')->nullable();
             $table->timestamps();
-            $table->foreign('owner')->references('id')->on('users');
-            $table->foreign('sharedID')->references('id')->on('archives');
+            $table->foreign('archiveID')->references('id')->on('archives');
+            $table->foreign('sharedID')->references('id')->on('users');
         });
     }
 

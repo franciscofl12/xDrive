@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;// include composer autoload
+use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
 
 class UserController extends Controller
 {
@@ -85,7 +88,7 @@ class UserController extends Controller
                     $updateUser->email = $request->input('email');
                 }
                 if ($request->input('password')) {
-                    $updateUser->password = md5($request->input('password'));
+                    $updateUser->password = Hash::make($request->input('password'));
                 }
                 if ($request->input('rol')) {
                     $updateUser->rol = $request->input('rol');
@@ -94,6 +97,7 @@ class UserController extends Controller
                 if (is_uploaded_file($request->file('file'))) {
                     $picture = time() . "-" . $request->file('file')->getClientOriginalName();
                     $updateUser->avatar = $picture;
+
                     $request->file('file')->storeAs('public/profilepictures', $picture);
                 }
                 $updateUser->save();

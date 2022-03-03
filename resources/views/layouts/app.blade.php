@@ -51,6 +51,5 @@
                 sidebar.classList.toggle("-translate-x-full");
             });
         </script>
-        <script src="../node_modules/flowbite/dist/flowbite.js"></script>
     </body>
 </html>

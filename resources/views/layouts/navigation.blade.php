@@ -13,7 +13,7 @@
 
 <!-- sidebar -->
 <div
-    class="sidebar bg-gray-900 text-indigo-400 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+    class="sidebar z-10 bg-gray-900 text-indigo-400 w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
 
     <!-- logo -->
     <a href="{{route('dashboard')}}" class="text-white flex items-center space-x-2 px-4">
@@ -83,3 +83,4 @@
         <a class="text-gray-200" href="https://franciscofl.dev/">franciscofl12</a>
     </div>
 </div>
+<script src="{{asset('../node_modules/flowbite/dist/flowbite.js')}}"></script>

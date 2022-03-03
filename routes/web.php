@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\Shared_ArchiveController;
 use App\Http\Controllers\UserController;
 use App\Models\Archive;
+use App\Models\Shared_Archive;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +42,12 @@ Route::get('/edit/{id}', function ($id) {
     return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
 })->middleware(['admin'])->name('edit');
 
+Route::get('/download/{id}', function ($id) {
+    return ArchiveController::downloadArchive($id);
+})->middleware(['ArchivePermission'])->name('download');
+
 Route::resource('archive', ArchiveController::class)->middleware(['auth', 'verified']);
 Route::resource('user', UserController::class)->middleware(['auth', 'verified']);
+Route::resource('sharedarchive', Shared_ArchiveController::class)->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';
