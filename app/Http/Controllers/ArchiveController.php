@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
+use App\Models\SharedArchive;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,7 +95,7 @@ class ArchiveController extends Controller
     function show($id)
     {
         $this->middleware('ArchivePermission');
-        return view('archive.show' , ['archive'=> Archive::findOrFail($id)]);
+        return view('archive.show' , ['archive'=> Archive::findOrFail($id)] , ['sharedWith'=> SharedArchive::where('archiveID', $id)->get()]);
     }
 
     /**

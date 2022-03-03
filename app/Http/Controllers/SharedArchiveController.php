@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Archive;
-use App\Models\Shared_Archive;
+use App\Models\SharedArchive;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class Shared_ArchiveController extends Controller
+class SharedArchiveController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,13 +39,13 @@ class Shared_ArchiveController extends Controller
     {
 
         $validated = $request->validate([
-            'username' => 'exists:username|required'
+            'username' => 'exists:users|required'
         ]);
 
         try {
-            $newShare = new Shared_Archive();
+            $newShare = new SharedArchive();
             $newShare->archiveID = $request->input('id');
-            $newShare->sharedID = User::where('users', $request->input('username'))->firstOrFail()->id;
+            $newShare->sharedID = User::where('username', $request->input('username'))->firstOrFail()->id;
             $newShare->save();
 
             return redirect()->route('dashboard');

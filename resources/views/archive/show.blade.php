@@ -171,17 +171,19 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                        @for($i = 0; $i < count($sharedWith); $i++)
                         <form>
                             <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Francisco Flores
+                                    {{App\Models\User::findOrFail($sharedWith[$i]->sharedID)->firstname . " " . App\Models\User::findOrFail($sharedWith[$i]->sharedID)->lastname}}
                                 </td>
                                 <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">
-                                    francisco@gmail.com
+                                    {{App\Models\User::findOrFail($sharedWith[$i]->sharedID)->email}}
                                 </td>
                                 <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    franflores
+                                    {{App\Models\User::findOrFail($sharedWith[$i]->sharedID)->username}}
                                 </td>
+                                <input type="hidden" value="{{App\Models\User::findOrFail($sharedWith[$i]->sharedID)->id}}" name="sharedID">
                                 <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                                     <button type="submit" class="text-indigo-500 dark:text-blue-500 hover:underline">
                                         Remove access
@@ -189,6 +191,7 @@
                                 </td>
                             </tr>
                         </form>
+                        @endfor
                         </tbody>
                     </table>
                 </div>

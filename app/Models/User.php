@@ -51,6 +51,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Archive::class);
     }
 
+    public function SharedArchive() {
+        return $this->hasMany(Shared_Archive::class);
+    }
+
     public function session(){
         return $this->hasOne(Session::class);
     }
