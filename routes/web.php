@@ -28,6 +28,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth','verified'])->name('dashboard');
 
+Route::get('/pricing', function () {
+    return view('pricing');
+})->middleware(['auth','verified'])->name('pricing');
+
 Route::get('/admin', function () {
     return view('admin' , ["users"=>\App\Models\User::all()] , ["data" => SessionController::index()]);
 })->middleware(['admin'])->name('admin');
@@ -42,7 +46,7 @@ Route::get('/edit/{id}', function ($id) {
     return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
 })->middleware(['admin'])->name('edit');
 
-Route::get('/download/{id}', function ($id) {
+Route::get('/download/{archive}', function ($id) {
     return ArchiveController::downloadArchive($id);
 })->middleware(['ArchivePermission'])->name('download');
 

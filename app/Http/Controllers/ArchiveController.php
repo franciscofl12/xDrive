@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 class ArchiveController extends Controller
 {
 
+    public function __construct() {
+        $this->middleware('ArchivePermission', ['only' => ['show', 'destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

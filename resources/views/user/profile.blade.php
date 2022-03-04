@@ -16,10 +16,10 @@
                     <div class="pb-1">
                         <p for="name" class="font-semibold text-gray-900 block pb-1">Current Avatar</p>
                         @if($user->avatar == null)
-                            <img class="mx-auto rounded-full border-2 border-indigo-400"
+                            <img class="h-20 w-20 rounded-full border-2 border-indigo-400"
                                  src="{{ asset('../resources/img/defaultavatar.jpg')}}" width="150px">
                         @else
-                            <img class="mx-auto rounded-full border-2 border-indigo-400"
+                            <img class="h-20 w-20 rounded-full border-2 border-indigo-400"
                                  src="{{asset('storage/profilepictures/' . auth()->user()->avatar)}}" width="150px">
                         @endif
                     </div>

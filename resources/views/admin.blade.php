@@ -46,7 +46,7 @@
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
                                                         <?php
-                                                        if(auth()->user()->avatar == null) {
+                                                        if($user->avatar == null) {
                                                         ?>
                                                         <img class="h-10 w-10 rounded-full border-indigo-400"
                                                              src="../resources/img/defaultavatar.jpg"

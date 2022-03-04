@@ -24,10 +24,11 @@
                     <div class="pb-1">
                         <p for="name" class="font-semibold text-gray-900 block pb-1">Current Avatar</p>
                         @if($user->avatar == null)
-                            <img class="mx-auto rounded-full border-2 border-indigo-400"
+                            <img class="h-20 w-20 rounded-full border-2 border-indigo-400"
                                  src="{{ asset('../resources/img/defaultavatar.jpg')}}" width="150px">
                         @else
-                            <img class="mx-auto rounded-full border-2 border-indigo-400" src="{{asset('storage/profilepictures/' . $user->avatar)}}" width="150px">
+                            <img class="h-20 w-20 rounded-full border-2 border-indigo-400"
+                                 src="{{asset('storage/profilepictures/' . $user->avatar)}}" width="150px">
                         @endif
                     </div>
                 </div>
@@ -65,7 +66,8 @@
                         <form action="{{route('user.update' , $user->id)}}" method="POST">
                             @csrf
                             <div class="flex mb-4">
-                                <input id="password" name="password" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="password"
+                                <input id="password" name="password"
+                                       class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="password"
                                        value=""/> <br>
                             </div>
                             <x-button class="ml-3">
@@ -87,7 +89,8 @@
                         <div class="pb-6">
                             <label for="firstname" class="font-semibold text-gray-900 block pb-1">First Name</label>
                             <div class="flex">
-                                <input id="firstname" name="firstname" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full"
+                                <input id="firstname" name="firstname"
+                                       class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full"
                                        type="text"
                                        value="{{$user->firstname}}"/>
                             </div>
@@ -95,20 +98,23 @@
                         <div class="pb-6">
                             <label for="lastname" class="font-semibold text-gray-900 block pb-1">Last Name</label>
                             <div class="flex">
-                                <input id="lastname" name="lastname" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="text"
+                                <input id="lastname" name="lastname"
+                                       class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="text"
                                        value="{{$user->lastname}}"/>
                             </div>
                         </div>
                         <div class="pb-6">
                             <label for="username" class="font-semibold text-gray-900 block pb-1">Username</label>
                             <div class="flex">
-                                <input id="username" name="username" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="text"
+                                <input id="username" name="username"
+                                       class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="text"
                                        value="{{$user->username}}"/>
                             </div>
                         </div>
                         <div class="pb-4">
                             <label for="email" class="font-semibold text-gray-900 block pb-1">Email</label>
-                            <input id="email" name="email" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full" type="email"
+                            <input id="email" name="email" class="border-1 bg-gray-100 rounded-r px-4 py-2 w-full"
+                                   type="email"
                                    value="{{$user->email}}"/>
                         </div>
                         <div class="pb-6">
@@ -126,25 +132,25 @@
                                 </select>
                             </div>
                         </div>
-                            <div id="overlay" class="m-4">
-                                <label class="inline-block mb-2 text-gray-500">Avatar Upload</label>
-                                <div class="flex items-center justify-center w-full">
-                                    <label
-                                        class="flex flex-col w-full h-40 border-4 border-gray-900 border-dashed hover:bg-gray-100 hover:border-indigo-400">
-                                        <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
-                                            <li id="empty"
-                                                class="h-full w-full text-center flex flex-col items-center justify-center items-center">
-                                                <img class="w-28 py-2"
-                                                     src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
-                                                     alt="no data"/>
-                                                <span class="text-small text-gray-500">No photo selected</span>
-                                            </li>
-                                        </ul>
-                                        <input name="file" type="file" multiple id="hidden-input" class="opacity-0"/>
-                                    </label>
+                        <div id="overlay" class="m-4">
+                            <label class="inline-block mb-2 text-gray-500">Avatar Upload</label>
+                            <div class="flex items-center justify-center w-full">
+                                <label
+                                    class="flex flex-col w-full h-40 border-4 border-gray-900 border-dashed hover:bg-gray-100 hover:border-indigo-400">
+                                    <ul id="gallery" class="flex flex-1 flex-wrap -m-1">
+                                        <li id="empty"
+                                            class="h-full w-full text-center flex flex-col items-center justify-center items-center">
+                                            <img class="w-28 py-2"
+                                                 src="https://user-images.githubusercontent.com/507615/54591670-ac0a0180-4a65-11e9-846c-e55ffce0fe7b.png"
+                                                 alt="no data"/>
+                                            <span class="text-small text-gray-500">No photo selected</span>
+                                        </li>
+                                    </ul>
+                                    <input name="file" type="file" multiple id="hidden-input" class="opacity-0"/>
+                                </label>
 
-                                </div>
                             </div>
+                        </div>
                         <x-button class="ml-3">
                             Update Profile
                         </x-button>
@@ -217,10 +223,49 @@
         </div>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden sm:rounded-lg">
-                 Archivos compartidos aqui
-            </div>
+            <section class="bg-white overflow-hidden sm:rounded-lg">
+                <section
+                    class="grid grid-cols-1 shadow-mg duration-700 transition rounded-lg md:grid-cols-2 lg:grid-cols-3 sm:grid-cols-1 gap-3 p-6 bg-white border-b border-gray-200 shadow-lg">
+                    @foreach(\App\Http\Controllers\SharedArchiveController::class::getAllArchiveShared($user->id) as $archive)
+                        <div class="bg-gray-900 w-60 shadow-lg rounded p-2">
+                            <div class="flex">
+                                <a href="{{route('archive.show' , $archive->id)}}"
+                                   class="text-sm text-white hover:text-indigo-400">
+                                    {{$archive->name}}
+                                </a>
+                            </div>
+                            <div class="group relative">
+                                <img alt="Placeholder" class="block h-48 p-2 w-full object-fill rounded"
+                                     src="{{ asset('../resources/img/'.$archive->type.'.png')}}">
+                                <div
+                                    class="absolute bg-black rounded bg-opacity-0 group-hover:bg-opacity-60 w-full h-full top-0 flex items-center group-hover:opacity-100 duration-700 transition justify-evenly">
+
+                                    <button type="submit"
+                                            class="hover:scale-110 text-white outline-none  opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                                        </svg>
+                                    </button>
+                                    <form action="{{route('archive.destroy' , $archive->id)}}" method="POST">
+                                        @csrf
+                                        @method('Delete')
+                                        <button type="submit"
+                                                class="hover:scale-110 text-white outline-none opacity-0 transform translate-y-3 group-hover:translate-y-0 group-hover:opacity-100 transition">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                            </svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                    @endforeach
+                </section>
         </div>
+    </div>
 
     </div>
     <!-- using two similar templates for simplicity in js code -->
@@ -357,7 +402,7 @@
                 delete FILES[ou];
             }
         };
-        </script>
+    </script>
     </div>
     </div>
     </div>

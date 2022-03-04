@@ -24,12 +24,12 @@
         <?php
         if(auth()->user()->avatar == null) {
         ?>
-        <img class="mx-auto rounded-full border-2 border-indigo-400 mb-4"
+        <img class="mx-auto h-20 w-20 rounded-full border-2 border-indigo-400 mb-4"
              s src="{{ asset('../resources/img/defaultavatar.jpg')}}" width="150px">
         <?php
         } else {
         ?>
-        <img class="mx-auto rounded-full border-2 border-indigo-400 mb-4" src="{{asset('storage/profilepictures/' . auth()->user()->avatar)}}" width="150px">
+        <img class="mx-auto h-20 w-20 rounded-full border-2 border-indigo-400 mb-4" src="{{asset('storage/profilepictures/' . auth()->user()->avatar)}}" width="150px">
         <?php
         }
         ?>
@@ -71,10 +71,10 @@
 
     <!-- nav -->
     <nav>
-        <a href="#" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-400 hover:text-white">
+        <a href="{{route('sharedarchive.index')}}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-400 hover:text-white">
             Shared Archives
         </a>
-        <a href="" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-400 hover:text-white">
+        <a href="{{route('pricing')}}" class="block py-2.5 px-4 rounded transition duration-200 hover:bg-indigo-400 hover:text-white">
             Pricing
         </a>
     </nav>

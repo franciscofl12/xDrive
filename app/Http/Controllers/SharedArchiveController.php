@@ -16,7 +16,7 @@ class SharedArchiveController extends Controller
      */
     public function index()
     {
-        redirect(back());
+        return view('archive.shared');
     }
 
     /**
@@ -48,11 +48,21 @@ class SharedArchiveController extends Controller
             $newShare->sharedID = User::where('username', $request->input('username'))->firstOrFail()->id;
             $newShare->save();
 
-            return redirect()->route('dashboard');
+            return redirect()->route('archive.show',$request->input('id'));
 
         } catch (QueryException $exception) {
             return redirect()->route('dashboard')->with('error', 1);
         }
+    }
+
+    public static function getAllArchiveShared($id) {
+        $archives = [];
+        foreach(SharedArchive::all() as $archive) {
+            if ($archive->sharedID == $id) {
+                array_push($archives,Archive::findOrFail($archive->archiveID));
+            }
+        }
+        return $archives;
     }
 
     /**
@@ -97,6 +107,8 @@ class SharedArchiveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $share=SharedArchive::findOrFail($id);
+        $share->delete();
+        return redirect()->route('archive.show',$id);
     }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign(['archiveID'])->references('id')->on('archives');
             $table->foreign('sharedID')->references('id')->on('users');
+            $table->unique(['archiveID','sharedID']);
         });
     }
 
