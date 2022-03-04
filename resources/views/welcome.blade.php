@@ -113,7 +113,7 @@
         <div class="w-full xl:w-3/5 p-12 overflow-hidden">
             <img
                 class="mx-auto w-full md:w-4/5 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6"
-                src="../resources/img/macbook.svg"/>
+                src="../resources/img/background.png"/>
         </div>
 
         <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in top-[100vh]">

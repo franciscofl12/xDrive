@@ -108,7 +108,8 @@ class SharedArchiveController extends Controller
     public function destroy($id)
     {
         $share=SharedArchive::findOrFail($id);
+        $idarchive = $share->archiveID;
         $share->delete();
-        return redirect()->route('archive.show',$id);
+        return redirect()->route('archive.show',$idarchive);
     }
 }

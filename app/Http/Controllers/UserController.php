@@ -102,7 +102,7 @@ class UserController extends Controller
                 }
                 $updateUser->save();
 
-                return redirect()->url('edit/'.$request->input('id'));
+                return redirect()->route('dashboard');
             } else {
                 $updateUser = User::findOrFail($id);
                 if ($request->input('firstname')) {
