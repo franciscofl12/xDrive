@@ -26,24 +26,29 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/pricing', function () {
     return view('pricing');
-})->middleware(['auth','verified'])->name('pricing');
+})->middleware(['auth', 'verified'])->name('pricing');
 
 Route::get('/admin', function () {
-    return view('admin' , ["users"=>\App\Models\User::all()] , ["data" => SessionController::index()]);
+    return view('admin', ["users" => \App\Models\User::all()], ["data" => SessionController::index()]);
 })->middleware(['admin'])->name('admin');
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('profile', function () {
-    return view('user.profile', ["user"=>Auth::user()] );
-})->middleware(['auth','verified'])->name('profile');
+    return view('user.profile', ["user" => Auth::user()]);
+})->middleware(['auth', 'verified'])->name('profile');
 
 Route::get('/edit/{id}', function ($id) {
-    return view('user.edit' , ["user"=>\App\Models\User::findOrFail($id)] , ["data" => SessionController::show($id)]);
+    $data = SessionController::show($id);
+    if ($data == null) {
+        return view('admin', ["users" => \App\Models\User::all()], ["data" => SessionController::index()])->with('error', 1);
+    } else {
+        return view('user.edit', ["user" => \App\Models\User::findOrFail($id)], ["data" => SessionController::show($id)]);
+    }
 })->middleware(['admin'])->name('edit');
 
 Route::get('/download/{archive}', function ($id) {
@@ -54,4 +59,4 @@ Route::resource('archive', ArchiveController::class)->middleware(['auth', 'verif
 Route::resource('user', UserController::class)->middleware(['auth', 'verified']);
 Route::resource('sharedarchive', SharedArchiveController::class)->middleware(['auth', 'verified']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

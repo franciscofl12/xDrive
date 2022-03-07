@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('archiveapi', ArchiveApiController::class)->middleware('AdminMiddleware');
+Route::resource('archiveapi', ArchiveApiController::class)->middleware('auth.basic');
